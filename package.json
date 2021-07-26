@@ -8,7 +8,8 @@
     "tailw": "set TAILWIND_MODE=watch&&postcss tailwind.css -o ./assets/styles.css -w --verbose",
     "build": "set NODE_ENV=production&& webpack",
     "postbuild": "node postbuildpretail.js&&npx tailwindcss -o dist/styles.css --minify --jit --purge=\"./src/**/*.* &&node postbuildposttail",
-    "test": " exit 1"
+    "test": " exit 1",
+    "vercel": "node vercelcopy.js"
   },
   "keywords": [],
   "author": "",

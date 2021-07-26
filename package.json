@@ -1,0 +1,34 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "set NODE_ENV=development&&set t1=aab&& webpack serve",
+    "tailw": "set TAILWIND_MODE=watch&&postcss tailwind.css -o ./assets/styles.css -w --verbose",
+    "build": "set NODE_ENV=production&& webpack",
+    "postbuild": "node postbuildpretail.js&&npx tailwindcss -o dist/styles.css --minify --jit --purge=\"./src/**/*.* &&node postbuildposttail",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "7.14.6",
+    "copy-dir": "1.3.0",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-transform-react-jsx": "^7.14.5",
+    "@babel/plugin-transform-runtime": "7.14.5",
+    "@babel/preset-env": "^7.14.7",
+    "@prefresh/webpack": "3.3.0",
+    "babel-loader": "8.2.2",
+    "clean-webpack-plugin": "4.0.0-alpha.0",
+    "html-webpack-plugin": "5.3.2",
+    "preact": "10.5.14",
+    "react-refresh": "0.10.0",
+    "tailwindcss": "^2.2.4",
+    "webpack": "5.43.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "3.11.2"
+  }
+}

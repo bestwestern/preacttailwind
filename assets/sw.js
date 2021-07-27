@@ -13,11 +13,14 @@ self.addEventListener("fetch", (event) => {
       const networkResponsePromise = fetch(request);
 
       if (request.url.startsWith(self.location.origin)) {
+        console.log("origin " + request.url);
         event.waitUntil(
           (async function () {
             const networkResponse = await networkResponsePromise;
-            if (networkResponse.status === 200)
+            if (networkResponse.status === 200) {
+              console.log("newCache");
               await cache.put(request, networkResponse.clone());
+            }
           })()
         );
       }

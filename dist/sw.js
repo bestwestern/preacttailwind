@@ -1,5 +1,5 @@
 const CACHE_NAME = "c1";
-const urlsToCache = ["/","/styles1627315388979.css","/android-chrome-192x192.png","/android-chrome-512x512.png","/apple-touch-icon.png","/favicon-16x16.png","/favicon-32x32.png","/favicon.ico","/mainf3ba898d1f4d15ae3bc7.js","/setup1627315388979.js","/webworker1627315388979.js"];
+const urlsToCache = ["/","/android-chrome-192x192.png","/android-chrome-512x512.png","/apple-touch-icon.png","/favicon-16x16.png","/favicon-32x32.png","/favicon.ico","/main9d266dec92961837dc4e.js","/styles3673332864.css","/webworker154907192.js"];
 console.table(urlsToCache);
 self.addEventListener("fetch", (event) => {
   const { request } = event;
@@ -13,11 +13,14 @@ self.addEventListener("fetch", (event) => {
       const networkResponsePromise = fetch(request);
 
       if (request.url.startsWith(self.location.origin)) {
+        console.log("origin " + request.url);
         event.waitUntil(
           (async function () {
             const networkResponse = await networkResponsePromise;
-            if (networkResponse.status === 200)
+            if (networkResponse.status === 200) {
+              console.log("newCache");
               await cache.put(request, networkResponse.clone());
+            }
           })()
         );
       }

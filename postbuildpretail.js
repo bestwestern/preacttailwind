@@ -53,4 +53,3 @@
 //   fs.writeFileSync("dist\\sw.js", newSW, "utf-8");
 //   // });
 // });
-console.log("whoa");

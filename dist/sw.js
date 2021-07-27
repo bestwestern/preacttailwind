@@ -1,5 +1,5 @@
 const CACHE_NAME = "c1";
-const urlsToCache = ["/","/styles1627315388979.css","/android-chrome-192x192.png","/android-chrome-512x512.png","/apple-touch-icon.png","/favicon-16x16.png","/favicon-32x32.png","/favicon.ico","/mainf3ba898d1f4d15ae3bc7.js","/setup1627315388979.js","/webworker1627315388979.js"];
+const urlsToCache = ["/","/styles1627380560911.css","/android-chrome-192x192.png","/android-chrome-512x512.png","/apple-touch-icon.png","/favicon-16x16.png","/favicon-32x32.png","/favicon.ico","/mainb340f50d5fe9f7403461.js","/setup.js","/webworker1627380560911.js"];
 console.table(urlsToCache);
 self.addEventListener("fetch", (event) => {
   const { request } = event;

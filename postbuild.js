@@ -2,20 +2,9 @@ const path = require("path");
 const fs = require("fs");
 const copydir = require("copy-dir");
 const stringHash = require("string-hash");
-const dir = "dist";
-const directoryPath = path.join(__dirname, dir);
-console.log("postt");
-// const files = fs.readdirSync(directoryPath);
-// files.forEach(function (file) {
-//   if (file.substr(file.length - 2) === "js")
-//     if (file.substr(0, 5) === "setup") {
-//       dt = file.substr(5, file.length - 8);
-//     }
-// });
+const directoryPath = path.join(__dirname, "dist");
 copydir.sync("./assets/", "./dist/", {
   filter: function (stat, filepath, filename) {
-    // console.log("filter " + filename);
-    // console.log("styles.css" === filename);
     return filename !== "styles.css";
   },
   utimes: true, // keep add time and modify time
@@ -43,11 +32,10 @@ fs.rename(
         files.forEach(function (file) {
           console.log(file);
           if (file.substr(0, 4) === "main") {
-            console.log(file);
             mainFileName = file;
           }
-          if (file.indexOf(".") > -1)
-            if (ignore.indexOf(file) === -1) fileTxt += '"/' + file + '",';
+          if (file.indexOf(".") > -1 && ignore.indexOf(file) === -1)
+            fileTxt += '"/' + file + '",';
         });
         var dataMain = fs.readFileSync("dist\\" + mainFileName, "utf-8");
         var newMain = dataMain.replace(

@@ -36,7 +36,7 @@ fs.rename(
       "dist\\webworker" + webWorkerHash + ".js",
       function (err2) {
         if (err2) console.log("ERROR: " + err2);
-        let fileTxt = '"/","/styles' + stylesHash + '.css",';
+        let fileTxt = '"/",';
         var ignore = ["sw.js", "index.html"];
         let mainFileName = "";
         const files = fs.readdirSync(directoryPath);

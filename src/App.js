@@ -16,14 +16,17 @@ class App extends Component {
     if (isProduction)
       if ("serviceWorker" in navigator) {
         console.log("load");
+        var installing = false;
         navigator.serviceWorker.register("sw.js", { scope: "/" }).then(
           (serviceWorkerRegistration) => {
             serviceWorkerRegistration.onupdatefound = function () {
               console.log("updatefound");
+              if (!installing) console.log("shouldreload");
             };
             var serviceWorker;
             if (serviceWorkerRegistration.installing) {
               serviceWorker = serviceWorkerRegistration.installing;
+              installing = true;
               document.querySelector("#kind").textContent = "installing";
             } else if (serviceWorkerRegistration.waiting) {
               serviceWorker = serviceWorkerRegistration.waiting;

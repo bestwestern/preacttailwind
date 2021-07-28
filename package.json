@@ -7,7 +7,7 @@
     "dev": "set NODE_ENV=development&&set t1=aab&& webpack serve",
     "tailw": "set TAILWIND_MODE=watch&&postcss tailwind.css -o ./assets/styles.css -w --verbose",
     "build": "set NODE_ENV=production webpack",
-    "postbuild": "npx tailwindcss -o dist/styles.css --minify --jit --purge=\"./src/**/*.*\"",
+    "postbuild": "npx tailwindcss -o dist/styles.css --minify --jit --purge=\"./src/**/*.*\" node postbuild.js",
     "test": " exit 1",
     "vercel": "node vercelcopy.js"
   },

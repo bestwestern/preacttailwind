@@ -1,5 +1,5 @@
 const CACHE_NAME = "c1";
-const urlsToCache = ["/","/android-chrome-192x192.png","/android-chrome-512x512.png","/apple-touch-icon.png","/favicon-16x16.png","/favicon-32x32.png","/favicon.ico","/main9d266dec92961837dc4e.js","/styles3673332864.css","/webworker154907192.js"];
+const urlsToCache = ["/","/android-chrome-192x192.png","/android-chrome-512x512.png","/apple-touch-icon.png","/favicon-16x16.png","/favicon-32x32.png","/favicon.ico","/main5031a3cced51249984cd.js","/styles3673332864.css","/webworker154907192.js"];
 console.table(urlsToCache);
 self.addEventListener("fetch", (event) => {
   const { request } = event;
@@ -38,6 +38,7 @@ self.addEventListener("activate", (event) => {
 });
 self.addEventListener("install", function (event) {
   console.log("installing");
+  //self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then(function (cache) {
       console.log("Opened cache");
@@ -53,6 +54,4 @@ self.addEventListener("install", function (event) {
   //       return cache.addAll(urlsToCache);
   //     });
   //   })
-
-  self.skipWaiting();
 });

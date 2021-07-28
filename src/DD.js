@@ -2,7 +2,7 @@ import { h } from "preact";
 
 export const DD = () => (
   <div>
-    <span>12</span>
+    <span>1234</span>
     <img src="img/test.jpg"></img>
   </div>
 );

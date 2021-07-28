@@ -38,6 +38,7 @@ self.addEventListener("activate", (event) => {
 });
 self.addEventListener("install", function (event) {
   console.log("installing");
+  //self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then(function (cache) {
       console.log("Opened cache");
@@ -53,6 +54,4 @@ self.addEventListener("install", function (event) {
   //       return cache.addAll(urlsToCache);
   //     });
   //   })
-
-  self.skipWaiting();
 });

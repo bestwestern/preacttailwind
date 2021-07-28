@@ -37,15 +37,23 @@ self.addEventListener("activate", (event) => {
   console.log("activated");
 });
 self.addEventListener("install", function (event) {
-  console.log("installing");
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(function (cache) {
-      console.log("Opened cache");
-      cache.delete("/").then(function (response) {
-        console.log(response);
+  self.addEventListener("install", function (event) {
+    console.log("installing");
+    event.waitUntil(
+      caches.open(CACHE_NAME).then(function (cache) {
+        console.log("Opened cache");
         return cache.addAll(urlsToCache);
-      });
-    })
+      })
+    );
+  // console.log("installing");
+  // event.waitUntil(
+  //   caches.open(CACHE_NAME).then(function (cache) {
+  //     console.log("Opened cache");
+  //     cache.delete("/").then(function (response) {
+  //       console.log(response);
+  //       return cache.addAll(urlsToCache);
+  //     });
+  //   })
   );
 
   self.skipWaiting();

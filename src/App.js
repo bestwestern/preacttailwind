@@ -20,34 +20,9 @@ class App extends Component {
         navigator.serviceWorker.register("sw.js", { scope: "/" }).then(
           (serviceWorkerRegistration) => {
             serviceWorkerRegistration.onupdatefound = function () {
-              console.log("updatefound");
               if (!installing) console.log("shouldreload");
             };
-            var serviceWorker;
-            if (serviceWorkerRegistration.installing) {
-              serviceWorker = serviceWorkerRegistration.installing;
-              installing = true;
-              document.querySelector("#kind").textContent = "installing";
-            } else if (serviceWorkerRegistration.waiting) {
-              serviceWorker = serviceWorkerRegistration.waiting;
-              document.querySelector("#kind").textContent = "waiting";
-            } else if (serviceWorkerRegistration.active) {
-              serviceWorker = serviceWorkerRegistration.active;
-              document.querySelector("#kind").textContent = "active";
-            }
-
-            if (serviceWorker) {
-              console.log(serviceWorker.state);
-              serviceWorker.addEventListener("statechange", function (e) {
-                console.log(e.target.state);
-              });
-            }
-            // registration.onupdatefound = () => {
-            //   console.log("updatefound"); //RELOAD!!
-            //   alert("reload!");
-            //   location.reload();
-            // };
-            // console.log("ServiceWorker registration", registration);
+            installing = !!serviceWorkerRegistration.installing;
           },
           (err) => {
             console.error("ServiceWorker registration failed", err);

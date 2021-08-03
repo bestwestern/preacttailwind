@@ -21,11 +21,12 @@ fs.rename(
     if (err1) console.log("ERR1OR: " + err);
     var dataWebworker = fs.readFileSync("assets\\webworker.js", "utf-8");
     var webWorkerHash = stringHash(dataWebworker);
-    var result = UglifyJS.minify("assets\\webworker.js");
-    console.log(result.code);
+    console.log(dataWebworker);
+    // var result = UglifyJS.minify("assets\\webworker.js");
+    // console.log(result.code);
     fs.writeFile(
       "dist\\webworker" + webWorkerHash + ".js",
-      result.code,
+      dataWebworker,
       function (err2) {
         if (err2) {
           console.log(err);

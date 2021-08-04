@@ -8,7 +8,6 @@ const supabaseUrl = "https://jeilavzqhgggwzcgaonv.supabase.co";
 const supabaseKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyNzk5MzgzNSwiZXhwIjoxOTQzNTY5ODM1fQ.w8HGZC5yfBBkP-SZOQP-Oas61vM6mq4gFb2fW8za38k";
 const supabase = createClient(supabaseUrl, supabaseKey);
-var worker = new Worker("webworker.js");
 class App extends Component {
   constructor() {
     super();

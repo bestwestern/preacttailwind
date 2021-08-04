@@ -8,10 +8,12 @@ const supabaseUrl = "https://jeilavzqhgggwzcgaonv.supabase.co";
 const supabaseKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyNzk5MzgzNSwiZXhwIjoxOTQzNTY5ODM1fQ.w8HGZC5yfBBkP-SZOQP-Oas61vM6mq4gFb2fW8za38k";
 //const supabase = createClient(supabaseUrl, supabaseKey);
+var db;
 class App extends Component {
   constructor() {
     super();
     this.state = {
+      data: [],
       count: 3,
     };
     worker.addEventListener(
@@ -24,20 +26,30 @@ class App extends Component {
       false
     );
   }
+  add = () => {
+    db.from("pokemon")
+      .insert([{ Name: "T-rex" + new Date().getTime().toString().substr(-4) }])
+      .then(({ data, error }) => {
+        console.log(data, error);
+      });
+  };
   componentDidMount() {
     if (isProduction) setupServiceworker();
-    // supabase
-    //   .from("pokemon")
-    //   .insert([{ Name: "T-rex" }])
-    //   .then(({ data, error }) => {
-    //     console.log(data, error);
-    //   });
+    //
     loadJS("/supa.js", () => {
       console.log(supabase);
-      var db = supabase.createClient(supabaseUrl, supabaseKey);
+      db = supabase.createClient(supabaseUrl, supabaseKey);
       // const { createClient } = supabase;
       // var supabase = createClient(supabaseUrl, supabaseKey);
       // supabase
+      const mySubscription = db
+        .from("pokemon")
+        .on("*", (payload) => {
+          console.log("Change received!", payload);
+          this.setState({ data: [payload.new, ...this.state.data] });
+        })
+        .subscribe();
+      console.log(mySubscription);
       db.from("pokemon")
         .select("*")
         .then(({ data, error }) => {
@@ -47,12 +59,17 @@ class App extends Component {
   }
   render({}, { count }) {
     return (
-      <div className="bg-green-700">
+      <div className="bg-white-700">
         <h1 class="pt-36 font-bold text-4xl text-blue-700 text-center">
           Hello Tailwind CSS2
         </h1>
         <strong>{count}</strong>
-        <pre>{JSON.stringify(this.state, null, 2)}</pre>
+        <p>
+          <button onClick={this.add}>tilføj</button>
+        </p>
+        {this.state.data.map((el) => (
+          <p>{el.Name}</p>
+        ))}
         <DD />
       </div>
     );

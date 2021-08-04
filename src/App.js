@@ -1,9 +1,14 @@
 //@ts-check
 //global var isProduction
 import { h, Component } from "preact";
-import { DD } from "./DD";
+import DD from "./DD";
+import { createClient } from "@supabase/supabase-js";
 window.worker = new Worker("webworker.js");
-
+const supabaseUrl = "https://jeilavzqhgggwzcgaonv.supabase.co";
+const supabaseKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyNzk5MzgzNSwiZXhwIjoxOTQzNTY5ODM1fQ.w8HGZC5yfBBkP-SZOQP-Oas61vM6mq4gFb2fW8za38k";
+const supabase = createClient(supabaseUrl, supabaseKey);
+var worker = new Worker("webworker.js");
 class App extends Component {
   constructor() {
     super();
@@ -22,6 +27,18 @@ class App extends Component {
   }
   componentDidMount() {
     if (isProduction) setupServiceworker();
+    // supabase
+    //   .from("pokemon")
+    //   .insert([{ Name: "T-rex" }])
+    //   .then(({ data, error }) => {
+    //     console.log(data, error);
+    //   });
+    supabase
+      .from("pokemon")
+      .select("*")
+      .then(({ data, error }) => {
+        this.setState({ data });
+      });
   }
   render({}, { count }) {
     return (

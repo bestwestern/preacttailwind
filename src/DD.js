@@ -18,7 +18,7 @@ class DD extends Component {
   render() {
     return (
       <div>
-        <span>abcedd</span>
+        <span>DDDEWWEDFfdsDD</span>
         <br />
         <input type="text"></input>
         <span>abcedd</span>
@@ -27,8 +27,10 @@ class DD extends Component {
         <br />
         <button onClick={this.expensive}>count in main thread</button>
         <br />
+        <strong>{"worker count " + this.props.workerCount}</strong>
+        <br />
         <strong>{"thread count " + this.state.count}</strong>
-        <img src="img/test.jpg"></img>
+        <img style={{ width: "55px" }} src="img/test.jpg"></img>
       </div>
     );
   }

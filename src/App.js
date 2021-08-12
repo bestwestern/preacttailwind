@@ -2,6 +2,9 @@
 //global var isProduction
 import { h, Component } from "preact";
 import DD from "./DD";
+//import { Suspense, lazy } from 'preact/compat';
+import Router from "preact-router";
+//const SomeComponent = lazy(() => import('./SomeComponent'));
 //import { createClient } from "@supabase/supabase-js";
 window.worker = new Worker("webworker.js");
 const supabaseUrl = "https://jeilavzqhgggwzcgaonv.supabase.co";
@@ -14,6 +17,7 @@ class App extends Component {
     super();
     this.state = {
       data: [],
+      newName: "",
       count: 3,
     };
     worker.addEventListener(
@@ -28,10 +32,11 @@ class App extends Component {
   }
   add = () => {
     db.from("pokemon")
-      .insert([{ Name: "T-rex" + new Date().getTime().toString().substr(-4) }])
+      .insert([{ Name: this.state.newName }])
       .then(({ data, error }) => {
         console.log(data, error);
       });
+    this.setState({ newName: "" });
   };
   componentDidMount() {
     if (isProduction) setupServiceworker();
@@ -57,25 +62,38 @@ class App extends Component {
         });
     });
   }
-  render({}, { count }) {
+  render({}, { count, data, newName }) {
     return (
       <div className="bg-white-700">
+        <Router>
+          <Main path="/"></Main>
+          <DD path="/test" workerCount={count} />
+        </Router>
+        <a href="/test">goto_D </a>
+        <br />
+        <a href="/">go_home </a>
         <h1 class="pt-36 font-bold text-4xl text-blue-700 text-center">
           Hello Tailwind CSS2
         </h1>
-        <strong>{count}</strong>
+        <p>
+          <input
+            class="border-2"
+            type="text"
+            value={newName}
+            onInput={(e) => this.setState({ newName: e.target.value })}
+          ></input>
+        </p>
+        <strong>{data.length}</strong>
         <p>
           <button onClick={this.add}>tilføj</button>
         </p>
-        {this.state.data.map((el) => (
+        {data.map((el) => (
           <p>{el.Name}</p>
         ))}
-        <DD />
       </div>
     );
   }
 }
-export { App };
 function setupServiceworker() {
   if ("serviceWorker" in navigator) {
     console.log("load");
@@ -93,6 +111,8 @@ function setupServiceworker() {
     );
   }
 }
+const Main = () => <p>homeurl</p>;
+export { App };
 var loadJS = function (url, implementationCode) {
   //url is URL of external file, implementationCode is the code
   //to be called from the file, location is the location to

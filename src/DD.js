@@ -18,7 +18,7 @@ class DD extends Component {
   render() {
     return (
       <div>
-        <span>DDDEWWEDFfdsDD</span>
+        <span>DDcomp</span>
         <br />
         <input type="text"></input>
         <span>abcedd</span>

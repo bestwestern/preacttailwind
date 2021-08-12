@@ -101,7 +101,10 @@ function setupServiceworker() {
     navigator.serviceWorker.register("sw.js", { scope: "/" }).then(
       (serviceWorkerRegistration) => {
         serviceWorkerRegistration.onupdatefound = function () {
-          if (!installing) console.log("shouldreload");
+          if (!installing) {
+            console.log("shouldreload");
+            location.reload();
+          }
         };
         installing = !!serviceWorkerRegistration.installing;
       },

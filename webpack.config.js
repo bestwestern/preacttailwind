@@ -15,7 +15,7 @@ const makeConfig = () => {
       isProduction,
     }),
     new HtmlWebpackPlugin({
-      title: "Alle øvelser",
+      title: "Testside",
       cssLink: isProduction ? "styles.css" : "styles.css", // "https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css",
       template: "./src/index.html",
     }),
@@ -49,6 +49,7 @@ const makeConfig = () => {
       contentBase: path.join(__dirname, "assets"),
       host: "localhost",
       port: 3008,
+      historyApiFallback: true,
       hot: true,
       inline: true,
       publicPath: "/",

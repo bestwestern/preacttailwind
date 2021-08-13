@@ -5,6 +5,7 @@ import DD from "./DD";
 //import { Suspense, lazy } from 'preact/compat';
 //import Router from "preact-router";
 import navaid from "navaid";
+import { Test } from "./Test";
 //const navaid = require("navaid");
 //const SomeComponent = lazy(() => import('./SomeComponent'));
 //import { createClient } from "@supabase/supabase-js";
@@ -21,6 +22,7 @@ class App extends Component {
       data: [],
       newName: "",
       count: 3,
+      route: "",
     };
     worker.addEventListener(
       "message",
@@ -50,9 +52,11 @@ class App extends Component {
     this.router
       .on("/", () => {
         console.log("~> /");
+        this.setState({ route: "" });
       })
       .on("/*", (params) => {
         console.log("~>WILD", params);
+        this.setState({ route: params.wild });
       });
     // .on("/books/*", (params) => {
     //   console.log("~> /books/*", params);
@@ -82,10 +86,18 @@ class App extends Component {
         });
     });
   }
-  render({}, { count, data, newName }) {
+  getRouteEl = (route) => {
+    if (route === "test") return <Test></Test>;
+  };
+  render({}, { count, data, newName, route }) {
+    let El = null;
+    if (route === "test") El = Test();
+    if (route === "test2") El = Test2();
     return (
       <div className="bg-white-700">
-        <a href="/test">gotofs_D </a>
+        <a href="/test">test </a>
+        <br />
+        <a href="/test2">test2 </a>
         <br />
         <a href="/books/abc">gotofs_books </a>
         <br />
@@ -94,6 +106,12 @@ class App extends Component {
         </button>
         <br />
         <a href="/">go_home </a>
+        <br />
+        <strong>{route}</strong>
+        {El}
+        {route === "test" && <Test></Test>}
+        <i>ffs</i>
+        {this.getRouteEl(route)}
         <h1 class="pt-36 font-bold text-4xl text-blue-700 text-center">
           Hello Tailwind CSS2
         </h1>
@@ -116,6 +134,7 @@ class App extends Component {
     );
   }
 }
+
 function setupServiceworker() {
   if ("serviceWorker" in navigator) {
     console.log("load");
@@ -134,6 +153,7 @@ function setupServiceworker() {
   }
 }
 const Main = () => <p>homeurl</p>;
+const Test2 = () => <p>test2222</p>;
 export { App };
 var loadJS = function (url, implementationCode) {
   //url is URL of external file, implementationCode is the code

@@ -87,51 +87,55 @@ class App extends Component {
     });
   }
   getRouteEl = (route) => {
+    console.log("getting route");
     if (route === "test") return <Test></Test>;
   };
   render({}, { count, data, newName, route }) {
-    let El = null;
-    if (route === "test") El = Test();
-    if (route === "test2") El = Test2();
-    return (
-      <div className="bg-white-700">
-        <a href="/test">test </a>
-        <br />
-        <a href="/test2">test2 </a>
-        <br />
-        <a href="/books/abc">gotofs_books </a>
-        <br />
-        <button onClick={(e) => this.router.route("/users/lukeed")}>
-          gotouserlukee
-        </button>
-        <br />
-        <a href="/">go_home </a>
-        <br />
-        <strong>{route}</strong>
-        {El}
-        {route === "test" && <Test></Test>}
-        <i>ffs</i>
-        {this.getRouteEl(route)}
-        <h1 class="pt-36 font-bold text-4xl text-blue-700 text-center">
-          Hello Tailwind CSS2
-        </h1>
-        <p>
-          <input
-            class="border-2"
-            type="text"
-            value={newName}
-            onInput={(e) => this.setState({ newName: e.target.value })}
-          ></input>
-        </p>
-        <strong>{data.length}</strong>
-        <p>
-          <button onClick={this.add}>tilføj</button>
-        </p>
-        {data.map((el) => (
-          <p>{el.Name}</p>
-        ))}
-      </div>
-    );
+    switch (route) {
+      case "test":
+        return <Test />;
+        break;
+      default:
+        return (
+          <div className="bg-white-700">
+            <a href="/test">test </a>
+            <br />
+            <a href="/test2">test2 </a>
+            <br />
+            <a href="/books/abc">gotofs_books </a>
+            <br />
+            <button onClick={(e) => this.router.route("/users/lukeed")}>
+              gotouserlukee
+            </button>
+            <br />
+            <a href="/">go_home </a>
+            <br />
+            <strong>{route}</strong>
+            <Test></Test>
+            <i>ffs</i>
+            {this.getRouteEl(route)}
+            <h1 class="pt-36 font-bold text-4xl text-blue-700 text-center">
+              Hello Tailwind CSS2
+            </h1>
+            <p>
+              <input
+                class="border-2"
+                type="text"
+                value={newName}
+                onInput={(e) => this.setState({ newName: e.target.value })}
+              ></input>
+            </p>
+            <strong>{data.length}</strong>
+            <p>
+              <button onClick={this.add}>tilføj</button>
+            </p>
+            {data.map((el) => (
+              <p>{el.Name}</p>
+            ))}
+          </div>
+        );
+        break;
+    }
   }
 }
 

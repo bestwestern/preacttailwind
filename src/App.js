@@ -3,7 +3,9 @@
 import { h, Component } from "preact";
 import DD from "./DD";
 //import { Suspense, lazy } from 'preact/compat';
-import Router from "preact-router";
+//import Router from "preact-router";
+import navaid from "navaid";
+//const navaid = require("navaid");
 //const SomeComponent = lazy(() => import('./SomeComponent'));
 //import { createClient } from "@supabase/supabase-js";
 window.worker = new Worker("webworker.js");
@@ -41,6 +43,24 @@ class App extends Component {
   componentDidMount() {
     if (isProduction) setupServiceworker();
     //
+    this.router = navaid();
+    // or: new Navaid();
+
+    // Attach routes
+    this.router
+      .on("/", () => {
+        console.log("~> /");
+      })
+      .on("/*", (params) => {
+        console.log("~>WILD", params);
+      });
+    // .on("/books/*", (params) => {
+    //   console.log("~> /books/*", params);
+    // })
+    // .on("/users/:username", (params) => {
+    //   console.log("~> /users/:username", params);
+    // });
+    this.router.listen();
     loadJS("/supa.js", () => {
       console.log(supabase);
       db = supabase.createClient(supabaseUrl, supabaseKey);
@@ -65,11 +85,13 @@ class App extends Component {
   render({}, { count, data, newName }) {
     return (
       <div className="bg-white-700">
-        <Router>
-          <Main path="/"></Main>
-          <DD path="/test" workerCount={count} />
-        </Router>
-        <a href="/test">goto_D </a>
+        <a href="/test">gotofs_D </a>
+        <br />
+        <a href="/books/abc">gotofs_books </a>
+        <br />
+        <button onClick={(e) => this.router.route("/users/lukeed")}>
+          gotouserlukee
+        </button>
         <br />
         <a href="/">go_home </a>
         <h1 class="pt-36 font-bold text-4xl text-blue-700 text-center">

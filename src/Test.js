@@ -6,7 +6,7 @@ class Test extends Component {
   render({}, { c }) {
     return (
       <div>
-        <p>TEST1abc</p>
+        <p>TEST1abcD</p>
         <button
           style={{ border: "1px solid" }}
           onClick={(e) => this.setState({ c: c + 1 })}

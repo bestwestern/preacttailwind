@@ -41,6 +41,7 @@ class App extends Component {
         console.log(data, error);
       });
     this.setState({ newName: "" });
+    this.router.route("/users/lukeed");
   };
   componentDidMount() {
     if (isProduction) setupServiceworker();
@@ -52,11 +53,11 @@ class App extends Component {
     this.router
       .on("/", () => {
         console.log("~> /");
-        this.setState({ route: "" });
+        this.setState({ route: [] });
       })
       .on("/*", (params) => {
         console.log("~>WILD", params);
-        this.setState({ route: params.wild });
+        this.setState({ route: params.wild.toLowerCase().split("/") });
       });
     // .on("/books/*", (params) => {
     //   console.log("~> /books/*", params);
@@ -91,50 +92,50 @@ class App extends Component {
     if (route === "test") return <Test></Test>;
   };
   render({}, { count, data, newName, route }) {
-    switch (route) {
+    console.log({ route });
+    if (route.length === 0) {
+      return (
+        <div className="bg-white-700">
+          <a href="/test">test </a>
+          <br />
+          <a href="/test2">test2 </a>
+          <br />
+          <a href="/books/abc">gotofs_books </a>
+          <br />
+          <button onClick={(e) => this.router.route("/users/lukeed")}>
+            gotouserlukee
+          </button>
+          <br />
+          <a href="/">go_home </a>
+          <br />
+          <strong>{route}</strong>
+          <Test></Test>
+          <i>ffs</i>
+          {this.getRouteEl(route)}
+          <h1 class="pt-36 font-bold text-4xl text-blue-700 text-center">
+            Hello Tailwind CSS2
+          </h1>
+          <p>
+            <input
+              class="border-2"
+              type="text"
+              value={newName}
+              onInput={(e) => this.setState({ newName: e.target.value })}
+            ></input>
+          </p>
+          <strong>{data.length}</strong>
+          <p>
+            <button onClick={this.add}>tilføj</button>
+          </p>
+          {data.map((el) => (
+            <p>{el.Name}</p>
+          ))}
+        </div>
+      );
+    }
+    switch (route[0]) {
       case "test":
         return <Test />;
-        break;
-      default:
-        return (
-          <div className="bg-white-700">
-            <a href="/test">test </a>
-            <br />
-            <a href="/test2">test2 </a>
-            <br />
-            <a href="/books/abc">gotofs_books </a>
-            <br />
-            <button onClick={(e) => this.router.route("/users/lukeed")}>
-              gotouserlukee
-            </button>
-            <br />
-            <a href="/">go_home </a>
-            <br />
-            <strong>{route}</strong>
-            <Test></Test>
-            <i>ffs</i>
-            {this.getRouteEl(route)}
-            <h1 class="pt-36 font-bold text-4xl text-blue-700 text-center">
-              Hello Tailwind CSS2
-            </h1>
-            <p>
-              <input
-                class="border-2"
-                type="text"
-                value={newName}
-                onInput={(e) => this.setState({ newName: e.target.value })}
-              ></input>
-            </p>
-            <strong>{data.length}</strong>
-            <p>
-              <button onClick={this.add}>tilføj</button>
-            </p>
-            {data.map((el) => (
-              <p>{el.Name}</p>
-            ))}
-          </div>
-        );
-        break;
     }
   }
 }

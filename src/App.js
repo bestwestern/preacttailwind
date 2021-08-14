@@ -45,7 +45,8 @@ class App extends Component {
   };
   componentDidMount() {
     if (isProduction) setupServiceworker();
-    //
+    debugger;
+    console.log(`${process.env.SOME_IMPORTANT_API_KEY}`);
     this.router = navaid();
     // or: new Navaid();
 
@@ -113,7 +114,10 @@ class App extends Component {
           <i>ffs</i>
           {this.getRouteEl(route)}
           <h1 class="pt-36 font-bold text-4xl text-blue-700 text-center">
-            Hello Tailwind CSS2
+            ${process.env.SOME_IMPORTANT_API_KEY}
+          </h1>
+          <h1 class="pt-36 font-bold text-4xl text-blue-700 text-center">
+            ${process.env.abc}
           </h1>
           <p>
             <input

@@ -1,5 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
+const Dotenv = require("dotenv-webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const PreactRefreshPlugin = require("@prefresh/webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
@@ -9,6 +10,7 @@ const makeConfig = () => {
   const isProduction = NODE_ENV === "production";
   const time = new Date().getTime();
   var plugins = [
+    new Dotenv(),
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(NODE_ENV),
       Version: 123,
